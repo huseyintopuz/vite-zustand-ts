@@ -4,7 +4,7 @@ Modern React application built with Vite, TypeScript, Tailwind CSS, and Zustand.
 
 ## 🚀 Tech Stack
 
-- **React 18** - Modern React hooks and features
+- **React 19** - Modern React hooks and features
 - **TypeScript** - Type safety and better developer experience
 - **Vite** - Fast build tool and dev server
 - **Tailwind CSS** - Utility-first CSS framework
