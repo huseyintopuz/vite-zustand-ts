@@ -4,9 +4,9 @@ import Column from "./components/Column";
 function App() {
   return (
     <div className="grid grid-cols-3 gap-x-5 p-4">
-      <Column title="Title 1" background="bg-gray-400" />
-      <Column title="Title 2" background="bg-gray-500" />
-      <Column title="Title 3" background="bg-gray-600" />
+      <Column state="PLANNED" background="bg-gray-400" />
+      <Column state="ONGOING" background="bg-gray-500" />
+      <Column state="DONE" background="bg-gray-600" />
     </div>
   );
 }
