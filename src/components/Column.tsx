@@ -11,15 +11,37 @@ type ColumnProps = {
 
 const Column = ({ state, background }: ColumnProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [drop, setDrop] = useState(false);
+
   const tasks: TaskProps[] = useStore((store) => store.tasks);
+  const setDraggedTask = useStore((store) => store.setDraggedTask);
+  const draggedTask = useStore((store) => store.draggedTask);
+  const moveTask = useStore((store) => store.moveTask);
 
   const filteredTasks = useMemo(
     () => tasks.filter((task: TaskProps) => task.state === state),
     [tasks, state]
   );
-
   return (
-    <div className={`${background}  flex flex-col items-center p-4 rounded-lg`}>
+    <div
+      onDragOver={(e) => {
+        setDrop(true);
+        e.preventDefault();
+      }}
+      onDragLeave={(e) => {
+        setDrop(false);
+        e.preventDefault();
+      }}
+      onDrop={() => {
+        if (draggedTask !== null) {
+          moveTask(draggedTask, state);
+        }
+        setDraggedTask(null);
+        setDrop(false);
+      }}
+      className={`${background} ${
+        drop ? "border-white" : "border-transparent"} border-dashed border-4 flex flex-col items-center p-4 rounded-lg`}
+    >
       <div className="w-full flex justify-between items-center mb-4">
         <span className="w-3/4 text-3xl text-white text-center">{state}</span>
         <button
@@ -33,7 +55,7 @@ const Column = ({ state, background }: ColumnProps) => {
       {filteredTasks.map((item) => (
         <Task key={item.id} {...item} />
       ))}
-      {isOpen && <Modal setIsOpen={setIsOpen} state={state}  />}
+      {isOpen && <Modal setIsOpen={setIsOpen} state={state} />}
     </div>
   );
 };
